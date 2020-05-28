@@ -5,6 +5,8 @@ namespace Core.Models
     {
         public Guid PromoCodeId { get; private set; }
 
+        public Guid MovieId { get; private set; }
+
         public DateTime PromoStart { get; private set; }
 
         public DateTime PromoEnd { get; private set; }
@@ -13,7 +15,7 @@ namespace Core.Models
 
         private PromoCode() { }
 
-        public PromoCode Create(DateTime promoStart, DateTime promoEnd, int percentage)
+        public PromoCode Create(Guid movieId, DateTime promoStart, DateTime promoEnd, int percentage)
         {
             if (promoStart < DateTime.Now)
                 throw new ArgumentOutOfRangeException(nameof(promoStart), "Promo Start should be today's date or later.");
@@ -24,7 +26,12 @@ namespace Core.Models
             if (percentage < 0 || percentage > 100)
                 throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage should be between 0 and 100");
 
-            return new PromoCode() { PromoStart = promoStart, PromoEnd = promoEnd, Percentage = percentage };
+            return new PromoCode() {
+                MovieId = movieId,
+                PromoStart = promoStart,
+                PromoEnd = promoEnd,
+                Percentage = percentage
+            };
         }
     }
 }

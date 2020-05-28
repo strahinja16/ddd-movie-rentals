@@ -12,9 +12,15 @@ namespace Core.Models
 
         private readonly List<PromoCode> promoCodes = new List<PromoCode>();
 
+        public Guid Id { get; private set; }
+
+        public string Name { get; private set; }
+
+        public Genre Genre { get; private set; }
+
         private Movie() { }
 
-        public static Movie Create(string name, Genre genre, int price)
+        public static Movie Create(string name, Genre genre, decimal price)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
@@ -24,12 +30,6 @@ namespace Core.Models
 
             return new Movie() { Genre = genre, Name = name, price = price };
         }
-
-        public Guid Id { get; private set; }
-
-        public string Name { get; private set; }
-
-        public Genre Genre { get; private set; }
 
         public void AddPromoCode(PromoCode promoCode)
         {
