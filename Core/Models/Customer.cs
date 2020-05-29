@@ -8,9 +8,9 @@ namespace Core.Models
 {
     public class Customer : IAggregateRoot
     {
-        private List<MoviePurchase> moviePurchases;
+        public List<MoviePurchase> MoviePurchases;
 
-        private List<MovieRental> movieRentals;
+        public List<MovieRental> MovieRentals;
 
         public Guid Id { get; private set; }
 
@@ -25,28 +25,28 @@ namespace Core.Models
             return new Customer() {
                 FullName = fullName,
                 CreditCard = creditCard,
-                moviePurchases = new List<MoviePurchase>(),
-                movieRentals = new List<MovieRental>()
+                MoviePurchases = new List<MoviePurchase>(),
+                MovieRentals = new List<MovieRental>()
             };
         }
 
         public void AddPurchasedMovie(MoviePurchase moviePurchase)
         {
-            if (moviePurchases.Count > 0 && moviePurchases.Exists(mp => mp.MovieId == moviePurchase.MovieId))
+            if (MoviePurchases.Count > 0 && MoviePurchases.Exists(mp => mp.MovieId == moviePurchase.MovieId))
                 throw new MovieAlreadyPurchasedException("Movie already purchased.");
 
-            moviePurchases.Add(moviePurchase);
+            MoviePurchases.Add(moviePurchase);
         }
 
         public void AddRentedMovie(MovieRental movieRental)
         {
-            if (moviePurchases.Count > 0 && moviePurchases.Exists(mp => mp.MovieId == movieRental.MovieId))
+            if (MoviePurchases.Count > 0 && MoviePurchases.Exists(mp => mp.MovieId == movieRental.MovieId))
                 throw new MovieAlreadyPurchasedException("Movie already purchased.");
 
-            if (movieRentals.Count > 0 && movieRentals.Exists(mp => mp.MovieId == movieRental.MovieId))
-                throw new MovieAlreadyRentedException($"Movie already rented.");
+            if (MovieRentals.Count > 0 && MovieRentals.Exists(mp => mp.MovieId == movieRental.MovieId))
+                throw new MovieAlreadyRentedException("Movie already rented.");
 
-            movieRentals.Add(movieRental);
+            MovieRentals.Add(movieRental);
         }
     }
 }

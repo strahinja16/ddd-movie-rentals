@@ -5,7 +5,11 @@ namespace Core.Models
     {
         public Guid CustomerId { get; private set; }
 
+        public Customer Customer { get; private set; }
+
         public Guid MovieId { get; private set; }
+
+        public Movie Movie { get; private set; }
 
         public DateTime StartDate { get; private set; }
 
@@ -13,15 +17,17 @@ namespace Core.Models
 
         private MovieRental() { }
 
-        public static MovieRental Create(Guid customerId, Guid movieId, DateTime endDate)
+        public static MovieRental Create(Customer customer, Movie movie, DateTime endDate)
         {
             if (endDate < DateTime.Now)
                 throw new ArgumentOutOfRangeException(nameof(endDate), "Rental end date must be later than now.");
 
             return new MovieRental()
             {
-                CustomerId = customerId,
-                MovieId = movieId,
+                CustomerId = customer.Id,
+                Customer = customer,
+                MovieId = movie.Id,
+                Movie = movie,
                 StartDate = DateTime.Now,
                 EndDate = endDate
             };
