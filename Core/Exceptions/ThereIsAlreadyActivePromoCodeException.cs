@@ -7,7 +7,7 @@ namespace Core.Exceptions
     {
         public ThereIsAlreadyActivePromoCodeException() {  }
 
-        public ThereIsAlreadyActivePromoCodeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected ThereIsAlreadyActivePromoCodeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public ThereIsAlreadyActivePromoCodeException(string message) : base(message) { }
        

@@ -7,7 +7,7 @@ namespace Core.Exceptions
     {
         public MovieAlreadyPurchasedException() {  }
 
-        public MovieAlreadyPurchasedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected MovieAlreadyPurchasedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public MovieAlreadyPurchasedException(string message) : base(message) { }
        

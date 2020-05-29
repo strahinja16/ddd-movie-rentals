@@ -18,6 +18,8 @@ namespace Core.Models
 
         public Genre Genre { get; private set; }
 
+        public DateTime CreatedAt { get; set; }
+
         private Movie() { }
 
         public static Movie Create(string name, Genre genre, decimal price)
@@ -28,7 +30,7 @@ namespace Core.Models
             if (price < 0)
                 throw new ArgumentOutOfRangeException(nameof(price), "Movie price must be positive number e.g. 29.99.");
 
-            return new Movie() { Genre = genre, Name = name, price = price };
+            return new Movie() { Genre = genre, Name = name, price = price, CreatedAt = DateTime.Now };
         }
 
         public void AddPromoCode(PromoCode promoCode)

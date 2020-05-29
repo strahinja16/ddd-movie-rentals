@@ -34,6 +34,8 @@ namespace WebApi.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<int>("Genre");
 
                     b.Property<string>("Name");

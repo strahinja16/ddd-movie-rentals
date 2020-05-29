@@ -29,5 +29,8 @@
   <ItemGroup>
     <Folder Include="Seeds\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>

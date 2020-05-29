@@ -7,7 +7,7 @@ namespace Core.Exceptions
     {
         public MovieAlreadyRentedException() { }
 
-        public MovieAlreadyRentedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected MovieAlreadyRentedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public MovieAlreadyRentedException(string message) : base(message) { }
 

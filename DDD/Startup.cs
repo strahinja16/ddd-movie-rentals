@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Interfaces;
 using Infrastructure.Contexts;
+using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,7 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WebApi.Interfaces;
 using WebApi.Seeds;
+using WebApi.Services;
 
 namespace DDD
 {
@@ -33,6 +37,9 @@ namespace DDD
                     Configuration.GetConnectionString("SqlServer"),
                     b => b.MigrationsAssembly("WebApi")
                 ));
+
+            services.AddTransient<IMoviesRepository, MoviesRepository>();
+            services.AddTransient<IMoviesService, MoviesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
