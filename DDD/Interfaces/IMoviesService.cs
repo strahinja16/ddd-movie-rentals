@@ -8,6 +8,9 @@ namespace WebApi.Interfaces
     public interface IMoviesService
     {
         List<MovieDto> GetMovies(Genre? genre);
+
         MovieDto GetMovieById(Guid id);
+
+        MovieDto AddPromoCode(PromoCodeDto promoCodeDto);
     }
 }

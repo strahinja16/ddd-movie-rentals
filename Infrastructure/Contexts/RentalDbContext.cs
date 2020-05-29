@@ -20,9 +20,13 @@ namespace Infrastructure.Contexts
                 .Property(typeof(decimal), "price");
 
             modelBuilder.Entity<Movie>()
-                .HasMany<PromoCode>()
-                .WithOne()
+                .HasMany(m => m.PromoCodes)
+                .WithOne(pc => pc.Movie)
                 .HasForeignKey(e => e.MovieId);
+
+            modelBuilder.Entity<PromoCode>()
+                .HasOne(p => p.Movie)
+                .WithMany(m => m.PromoCodes);
 
             modelBuilder.Entity<Customer>()
                 .HasMany<MovieRental>()

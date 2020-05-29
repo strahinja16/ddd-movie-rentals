@@ -10,7 +10,7 @@ namespace Core.Models
     {
         private decimal price;
 
-        private readonly List<PromoCode> promoCodes = new List<PromoCode>();
+        public List<PromoCode> PromoCodes { get; private set; }
 
         public Guid Id { get; private set; }
 
@@ -30,27 +30,34 @@ namespace Core.Models
             if (price < 0)
                 throw new ArgumentOutOfRangeException(nameof(price), "Movie price must be positive number e.g. 29.99.");
 
-            return new Movie() { Genre = genre, Name = name, price = price, CreatedAt = DateTime.Now };
+            return new Movie() {
+                Genre = genre,
+                Name = name,
+                price = price,
+                PromoCodes = new List<PromoCode>(),
+                CreatedAt = DateTime.Now
+            };
         }
 
         public void AddPromoCode(PromoCode promoCode)
         {
-            if (!promoCodes.Any())
+            if (!PromoCodes.Any())
             {
-                promoCodes.Add(promoCode);
+                PromoCodes.Add(promoCode);
+                return;
             }
 
-            if (promoCodes.Any(pc => pc.PromoEnd > DateTime.Now))
+            if (PromoCodes.Any(pc => pc.PromoEnd > DateTime.Now))
             {
                 throw new ThereIsAlreadyActivePromoCodeException($"There is already active promo code until {promoCode.PromoEnd.ToShortDateString()}");
             }
 
-            promoCodes.Add(promoCode);
+            PromoCodes.Add(promoCode);
         }
 
         public Price GetPrice()
         {
-            var currentPromo = promoCodes.Find(pc => pc.PromoEnd > DateTime.Now);
+            var currentPromo = PromoCodes.Find(pc => pc.PromoEnd > DateTime.Now);
             var promoPrice = currentPromo != null ? price * (100 - currentPromo.Percentage) / 100: (decimal?) null;
 
             return Price.Create(price, promoPrice);

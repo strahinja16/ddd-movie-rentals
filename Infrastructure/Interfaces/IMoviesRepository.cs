@@ -7,5 +7,6 @@ namespace Infrastructure.Interfaces
     public interface IMoviesRepository : IRepository<Movie>
     {
         List<Movie> GetMoviesByGenre(Genre? genre);
+        Movie AddPromoCode(PromoCode promoCode);
     }
 }

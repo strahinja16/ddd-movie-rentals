@@ -13,22 +13,22 @@ namespace Core.Models
 
         public int Percentage { get; set; }
 
+        public Movie Movie { get; private set; }
+
         private PromoCode() { }
 
-        public PromoCode Create(Guid movieId, DateTime promoStart, DateTime promoEnd, int percentage)
+        public static PromoCode Create(Movie movie, DateTime promoEnd, int percentage)
         {
-            if (promoStart < DateTime.Now)
-                throw new ArgumentOutOfRangeException(nameof(promoStart), "Promo Start should be today's date or later.");
-
-            if (promoEnd < promoStart)
-                throw new ArgumentOutOfRangeException(nameof(promoEnd), "Promo End should be later than promo start.");
+            if (promoEnd < DateTime.Now)
+                throw new ArgumentOutOfRangeException(nameof(promoEnd), "Promo End should be later than now.");
 
             if (percentage < 0 || percentage > 100)
                 throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage should be between 0 and 100");
 
             return new PromoCode() {
-                MovieId = movieId,
-                PromoStart = promoStart,
+                MovieId = movie.Id,
+                Movie = movie,
+                PromoStart = DateTime.Now,
                 PromoEnd = promoEnd,
                 Percentage = percentage
             };

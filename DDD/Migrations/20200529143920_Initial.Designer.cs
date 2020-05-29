@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(RentalDbContext))]
-    [Migration("20200529131056_Initial")]
+    [Migration("20200529143920_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -168,8 +168,8 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Core.Models.PromoCode", b =>
                 {
-                    b.HasOne("Core.Models.Movie")
-                        .WithMany()
+                    b.HasOne("Core.Models.Movie", "Movie")
+                        .WithMany("PromoCodes")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

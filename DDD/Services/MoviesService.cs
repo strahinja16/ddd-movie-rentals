@@ -21,6 +21,20 @@ namespace WebApi.Services
             this.mapper = mapper;
         }
 
+        public MovieDto AddPromoCode(PromoCodeDto promoCodeDto)
+        {
+            var movie = moviesRepository.FindById(promoCodeDto.MovieId);
+            if (movie == null)
+            {
+                throw new HttpException("Movie not found.", HttpStatus.NotFound);
+            }
+
+            var promoCode = PromoCode.Create(movie, promoCodeDto.PromoEnd, promoCodeDto.Percentage);
+            moviesRepository.AddPromoCode(promoCode);
+
+            return mapper.Map<MovieDto>(movie);
+        }
+
         public MovieDto GetMovieById(Guid id)
         {
             var movie = moviesRepository.FindById(id);

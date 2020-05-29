@@ -32,5 +32,11 @@ namespace WebApi.Controllers
         {
             return moviesService.GetMovieById(id);
         }
+
+        [HttpPost("{id}/add-promo-code")]
+        public MovieDto AddPromoCode([FromBody] PromoCodeDto promoCodeDto)
+        {
+            return moviesService.AddPromoCode(promoCodeDto);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Models;
 using Infrastructure.Contexts;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -21,9 +22,24 @@ namespace Infrastructure.Repositories
             context.Movies.Add(entity);
         }
 
+        public Movie AddPromoCode(PromoCode promoCode)
+        {
+            var movie = context.Movies.Find(promoCode.MovieId);
+
+            movie.AddPromoCode(promoCode);
+
+            context.Add(promoCode);
+            context.SaveChanges();
+
+            return movie;
+        }
+
         public Movie FindById(Guid id)
         {
-            return context.Movies.Find(id);
+            return context.Movies
+                .Include(m => m.PromoCodes)
+                .Where(m => m.Id == id)
+                .FirstOrDefault();
         }
 
         public List<Movie> GetMoviesByGenre(Genre? genre)
@@ -32,7 +48,6 @@ namespace Infrastructure.Repositories
             {
                 return context.Movies
                     .OrderByDescending(m => m.CreatedAt)
-                    .Take(5)
                     .ToList();
             }
 

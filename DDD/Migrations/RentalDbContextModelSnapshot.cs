@@ -166,8 +166,8 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Core.Models.PromoCode", b =>
                 {
-                    b.HasOne("Core.Models.Movie")
-                        .WithMany()
+                    b.HasOne("Core.Models.Movie", "Movie")
+                        .WithMany("PromoCodes")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
