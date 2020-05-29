@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Contexts;
 using Infrastructure.Interfaces;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApi.Interfaces;
+using WebApi.Mappings;
 using WebApi.Seeds;
 using WebApi.Services;
 
@@ -41,6 +43,8 @@ namespace DDD
             services.AddTransient<IMoviesRepository, MoviesRepository>();
             services.AddTransient<IMoviesService, MoviesService>();
 
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -60,7 +64,7 @@ namespace DDD
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            //SeedData.SeedDatabase(serviceProvider.GetRequiredService<RentalDbContext>());
+            SeedData.SeedDatabase(serviceProvider.GetRequiredService<RentalDbContext>());
         }
     }
 }

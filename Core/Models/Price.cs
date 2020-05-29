@@ -14,8 +14,8 @@ namespace Core.Models
             if (originalPrice < 0)
                 throw new ArgumentOutOfRangeException(nameof(originalPrice), "Original price should be positive number e.g. 29.99");
 
-            if (promoPrice.HasValue && originalPrice < 0)
-                throw new ArgumentOutOfRangeException(nameof(originalPrice), "Promo price should be positive number e.g. 29.99");
+            if (promoPrice.HasValue && promoPrice < 0)
+                throw new ArgumentOutOfRangeException(nameof(promoPrice), "Promo price should be positive number e.g. 29.99");
 
             return new Price() { OriginalPrice = originalPrice, PromoPrice = promoPrice };
         }

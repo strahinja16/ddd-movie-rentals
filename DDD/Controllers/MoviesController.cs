@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.DTO;
 using WebApi.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,13 +22,13 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Movie> Get([FromQuery()] Genre? genre)
+        public IEnumerable<MovieDto> Get([FromQuery()] Genre? genre)
         {
             return moviesService.GetMovies(genre);
         }
 
         [HttpGet("{id}")]
-        public Movie Get(Guid id)
+        public MovieDto Get(Guid id)
         {
             return moviesService.GetMovieById(id);
         }

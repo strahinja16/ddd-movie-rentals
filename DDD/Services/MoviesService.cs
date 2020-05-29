@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Core.Models;
 using Infrastructure.Interfaces;
+using WebApi.DTO;
 using WebApi.Exceptions;
 using WebApi.Interfaces;
 
@@ -10,13 +13,15 @@ namespace WebApi.Services
     public class MoviesService : IMoviesService
     {
         private readonly IMoviesRepository moviesRepository;
+        private readonly IMapper mapper;
 
-        public MoviesService(IMoviesRepository moviesRepository)
+        public MoviesService(IMoviesRepository moviesRepository, IMapper mapper)
         {
             this.moviesRepository = moviesRepository;
+            this.mapper = mapper;
         }
 
-        public Movie GetMovieById(Guid id)
+        public MovieDto GetMovieById(Guid id)
         {
             var movie = moviesRepository.FindById(id);
 
@@ -25,12 +30,15 @@ namespace WebApi.Services
                 throw new HttpException("Movie not found.", HttpStatus.NotFound);
             }
 
-            return movie;
+            return mapper.Map<MovieDto>(movie);
         }
 
-        public List<Movie> GetMovies(Genre? genre)
+        public List<MovieDto> GetMovies(Genre? genre)
         {
-            return moviesRepository.GetMoviesByGenre(genre);
+            return moviesRepository
+                .GetMoviesByGenre(genre)
+                .Select(m => mapper.Map<MovieDto>(m))
+                .ToList();
         }
     }
 }

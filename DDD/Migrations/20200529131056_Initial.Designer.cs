@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(RentalDbContext))]
-    [Migration("20200529120844_Initial")]
+    [Migration("20200529131056_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,8 @@ namespace WebApi.Migrations
                     b.Property<int>("Genre");
 
                     b.Property<string>("Name");
+
+                    b.Property<decimal>("price");
 
                     b.HasKey("Id");
 

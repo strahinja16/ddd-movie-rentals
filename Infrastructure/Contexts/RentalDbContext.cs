@@ -17,6 +17,9 @@ namespace Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>()
+                .Property(typeof(decimal), "price");
+
+            modelBuilder.Entity<Movie>()
                 .HasMany<PromoCode>()
                 .WithOne()
                 .HasForeignKey(e => e.MovieId);

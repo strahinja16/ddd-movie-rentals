@@ -40,6 +40,8 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<decimal>("price");
+
                     b.HasKey("Id");
 
                     b.ToTable("Movies");

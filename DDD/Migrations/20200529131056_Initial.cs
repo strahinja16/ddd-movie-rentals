@@ -29,7 +29,8 @@ namespace WebApi.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Genre = table.Column<int>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false)
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
