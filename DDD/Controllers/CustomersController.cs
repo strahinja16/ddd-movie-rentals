@@ -25,5 +25,17 @@ namespace WebApi.Controllers
         {
             return customersService.GetCustomerById(id);
         }
+
+        [HttpPost("{id}/rent-movie")]
+        public RentResponseDto RentMovie(Guid id, [FromBody] RentRequestDto rentRequestDto)
+        {
+            return customersService.RentMovie(id, rentRequestDto.MovieId);
+        }
+
+        [HttpPost("{id}/purchase-movie")]
+        public PurchaseResponseDto PurchaseMovie(Guid id, [FromBody] PurchaseRequestDto purchaseRequestDto)
+        {
+            return customersService.PurchaseMovie(id, purchaseRequestDto.MovieId);
+        }
     }
 }

@@ -24,7 +24,9 @@ namespace WebApi.Seeds
             return new List<Customer>()
             {
                 Customer.Create(FullName.Create("Strahinja", "Laktovic"), CreditCard.Create("0000-1111", true)),
-                Customer.Create(FullName.Create("Nikola", "Trajkovic"), CreditCard.Create("1111-2222", true))
+                Customer.Create(FullName.Create("Nikola", "Trajkovic"), CreditCard.Create("1111-2222", true)),
+                Customer.Create(FullName.Create("Bad", "Card"), CreditCard.Create("11-22", false)),
+                Customer.Create(FullName.Create("AnotherBad", "Card"), CreditCard.Create("33-44", false))
             };
         }
 

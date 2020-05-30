@@ -19,5 +19,10 @@ namespace Core.Models
 
             return new FullName() { Name = name, LastName = lastName };
         }
+
+        public override string ToString()
+        {
+            return $"{Name} {LastName}";
+        }
     }
 }

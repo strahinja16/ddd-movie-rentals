@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Contexts\" />
     <Folder Include="Repositories\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />

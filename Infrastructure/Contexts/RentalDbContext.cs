@@ -33,10 +33,18 @@ namespace Infrastructure.Contexts
                 .WithOne(r => r.Customer)
                 .HasForeignKey(e => e.CustomerId);
 
+            modelBuilder.Entity<MovieRental>()
+               .HasOne(r => r.Customer)
+               .WithMany(c => c.MovieRentals);
+
             modelBuilder.Entity<Customer>()
                 .HasMany<MoviePurchase>()
                 .WithOne(r => r.Customer)
                 .HasForeignKey(e => e.CustomerId);
+
+            modelBuilder.Entity<MoviePurchase>()
+              .HasOne(p => p.Customer)
+              .WithMany(c => c.MoviePurchases);
 
             modelBuilder.Entity<Movie>()
                 .HasMany<MoviePurchase>()

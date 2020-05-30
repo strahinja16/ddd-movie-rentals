@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Core.Interfaces;
 
-namespace Infrastructure.Interfaces
+namespace Core.Interfaces.Infrastructure
 {
     public interface IRepository<TEntity> where TEntity : IAggregateRoot
     {

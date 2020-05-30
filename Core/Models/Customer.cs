@@ -8,9 +8,9 @@ namespace Core.Models
 {
     public class Customer : IAggregateRoot
     {
-        public List<MoviePurchase> MoviePurchases;
+        public List<MoviePurchase> MoviePurchases { get; set; }
 
-        public List<MovieRental> MovieRentals;
+        public List<MovieRental> MovieRentals { get; set; }
 
         public Guid Id { get; private set; }
 
@@ -30,7 +30,7 @@ namespace Core.Models
             };
         }
 
-        public void AddPurchasedMovie(MoviePurchase moviePurchase)
+        public void AddMoviePurchase(MoviePurchase moviePurchase)
         {
             if (MoviePurchases.Count > 0 && MoviePurchases.Exists(mp => mp.MovieId == moviePurchase.MovieId))
                 throw new MovieAlreadyPurchasedException("Movie already purchased.");
@@ -38,7 +38,7 @@ namespace Core.Models
             MoviePurchases.Add(moviePurchase);
         }
 
-        public void AddRentedMovie(MovieRental movieRental)
+        public void AddMovieRental(MovieRental movieRental)
         {
             if (MoviePurchases.Count > 0 && MoviePurchases.Exists(mp => mp.MovieId == movieRental.MovieId))
                 throw new MovieAlreadyPurchasedException("Movie already purchased.");

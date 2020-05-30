@@ -141,7 +141,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("Core.Models.MoviePurchase", b =>
                 {
                     b.HasOne("Core.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("MoviePurchases")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -154,7 +154,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("Core.Models.MovieRental", b =>
                 {
                     b.HasOne("Core.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("MovieRentals")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
 

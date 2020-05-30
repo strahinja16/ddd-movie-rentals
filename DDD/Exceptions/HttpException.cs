@@ -8,9 +8,15 @@ namespace WebApi.Exceptions
     {
         public HttpStatusCode HttpStatusCode { get; private set; }
 
-        public HttpException(string message, HttpStatusCode status) : base(message) { HttpStatusCode = status; }
+        public HttpException(string message, HttpStatusCode status) : base(message)
+        {
+            HttpStatusCode = status;
+        }
          
-        public HttpException(string message, Exception innerException) : base(message, innerException) { }
+        public HttpException(string message, Exception innerException) : base(message, innerException)
+        {
+            HttpStatusCode = HttpStatusCode.InternalServerError;
+        }
 
         protected HttpException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }

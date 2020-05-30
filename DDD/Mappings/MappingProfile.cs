@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Core.Models;
+using Core.Models.Responses;
 using WebApi.DTO;
 
 namespace WebApi.Mappings
@@ -20,6 +21,16 @@ namespace WebApi.Mappings
                 {
                     opt.MapFrom(src => src.CreditCard.Value.Substring(src.CreditCard.Value.Length - 4));
                 });
+
+            CreateMap<RentResponse, RentResponseDto>()
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.MovieRental.StartDate))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.MovieRental.EndDate))
+                .ForMember(dest => dest.MovieStream, opt => opt.MapFrom(src => src.MovieStream));
+
+            CreateMap<PurchaseResponse, PurchaseResponseDto>()
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.MoviePurchase.Date))
+                .ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.MoviePurchase.Movie.Name))
+                .ForMember(dest => dest.MovieStreamWithDownload, opt => opt.MapFrom(src => src.MovieStreamWithDownload));
         }
     }
 }

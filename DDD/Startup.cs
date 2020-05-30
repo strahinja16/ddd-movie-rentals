@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Interfaces;
+using Core.Interfaces.Infrastructure;
+using Core.Services;
 using Infrastructure.Contexts;
-using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,11 +42,18 @@ namespace DDD
                     b => b.MigrationsAssembly("WebApi")
                 ));
 
+            // infrastructure repositories
             services.AddTransient<IMoviesRepository, MoviesRepository>();
-            services.AddTransient<IMoviesService, MoviesService>();
-
             services.AddTransient<ICustomersRepository, CustomersRepository>();
+
+            // application services
+            services.AddTransient<IMoviesService, MoviesService>();
             services.AddTransient<ICustomersService, CustomersService>();
+
+            // domain services
+            services.AddTransient<IMovieAcquisitionService, MovieAcquisitionService>();
+            services.AddTransient<IPaymentService, PaymentService>();
+            services.AddTransient<IStreamingService, StreamingService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
 
@@ -71,7 +79,7 @@ namespace DDD
 
             app.UseMvc();
 
-            SeedData.SeedDatabase(serviceProvider.GetRequiredService<RentalDbContext>());
+            //SeedData.SeedDatabase(serviceProvider.GetRequiredService<RentalDbContext>());
         }
     }
 }

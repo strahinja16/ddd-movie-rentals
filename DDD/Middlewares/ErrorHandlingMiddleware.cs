@@ -32,8 +32,17 @@ namespace WebApi.Middlewares
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
 
             if (ex is HttpException) code = ((HttpException)ex).HttpStatusCode;
-          
-            var result = JsonConvert.SerializeObject(new { error = ex.Message });
+
+            string result;
+            if (ex.InnerException != null)
+            {
+                result = JsonConvert.SerializeObject(new { error = ex.Message, innerError = ex.InnerException.Message });
+            }
+            else
+            {
+                result = JsonConvert.SerializeObject(new { error = ex.Message });
+            }
+
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);

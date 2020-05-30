@@ -13,7 +13,7 @@ namespace Core.Models
 
         public DateTime StartDate { get; private set; }
 
-        public DateTime EndDate { get; private set; }
+        public DateTime EndDate { get; set; }
 
         private MovieRental() { }
 

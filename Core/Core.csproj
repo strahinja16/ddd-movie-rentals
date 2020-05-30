@@ -9,5 +9,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Services\" />
+    <Folder Include="Interfaces\Infrastructure\" />
+    <Folder Include="Models\Responses\" />
   </ItemGroup>
 </Project>
