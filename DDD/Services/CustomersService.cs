@@ -17,17 +17,22 @@ namespace WebApi.Services
         private readonly ICustomersRepository customersRepository;
         private readonly IMoviesRepository moviesRepository;
         private readonly IMovieAcquisitionService movieAcquisitionService;
+        private readonly IDomainCustomersService domainCustomersService;
+
         private readonly IMapper mapper;
 
         public CustomersService(
             ICustomersRepository customersRepository,
             IMoviesRepository moviesRepository,
             IMovieAcquisitionService movieAcquisitionService,
+            IDomainCustomersService domainCustomersService,
             IMapper mapper)
         {
             this.customersRepository = customersRepository;
             this.moviesRepository = moviesRepository;
             this.movieAcquisitionService = movieAcquisitionService;
+            this.domainCustomersService = domainCustomersService;
+
             this.mapper = mapper;
         }
 
@@ -90,6 +95,14 @@ namespace WebApi.Services
             {
                 throw new HttpException("Customer not found.", HttpStatusCode.NotFound);
             }
+
+            return mapper.Map<CustomerDto>(customer);
+        }
+
+        public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto)
+        {
+            var customer = domainCustomersService
+                .CreateCustomer(createCustomerDto.Name, createCustomerDto.LastName, createCustomerDto.CreditCardValue);
 
             return mapper.Map<CustomerDto>(customer);
         }

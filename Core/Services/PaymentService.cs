@@ -9,16 +9,16 @@ namespace Core.Services
     {
         public int RentalFee { get; } = 5;
 
-        public bool CreditCardIsValid(Customer customer)
+        public bool CreditCardIsValid(string creditCardValue)
         {
-            return Regex.IsMatch(customer.CreditCard.Value, @"^\d{4}-\d{4}");
+            return Regex.IsMatch(creditCardValue, @"^\d{4}-\d{4}");
         }
 
         public bool Rent(Customer customer)
         {
             // pay using rental fee
 
-            return CreditCardIsValid(customer);
+            return CreditCardIsValid(customer.CreditCard.Value);
         }
 
         public bool Pay(Customer customer, Movie movie)
@@ -27,7 +27,7 @@ namespace Core.Services
 
             _ = movie.GetPrice();
 
-            return CreditCardIsValid(customer);
+            return CreditCardIsValid(customer.CreditCard.Value);
         }
     }
 }

@@ -26,6 +26,12 @@ namespace WebApi.Controllers
             return customersService.GetCustomerById(id);
         }
 
+        [HttpPost("")]
+        public CustomerDto CreateCustomer([FromBody] CreateCustomerDto createCustomerDto)
+        {
+            return customersService.CreateCustomer(createCustomerDto);
+        }
+
         [HttpPost("{id}/rent-movie")]
         public RentResponseDto RentMovie(Guid id, [FromBody] RentRequestDto rentRequestDto)
         {

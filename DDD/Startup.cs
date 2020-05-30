@@ -54,6 +54,7 @@ namespace DDD
             services.AddTransient<IMovieAcquisitionService, MovieAcquisitionService>();
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IStreamingService, StreamingService>();
+            services.AddTransient<IDomainCustomersService, DomainCustomersService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
 

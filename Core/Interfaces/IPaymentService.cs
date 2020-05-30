@@ -5,7 +5,7 @@ namespace Core.Interfaces
 {
     public interface IPaymentService
     {
-        bool CreditCardIsValid(Customer customer);
+        bool CreditCardIsValid(string creditCardValue);
 
         bool Rent(Customer customer);
 

@@ -7,6 +7,8 @@ namespace WebApi.Interfaces
     {
         CustomerDto GetCustomerById(Guid id);
 
+        CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
+
         PurchaseResponseDto PurchaseMovie(Guid customerId, Guid movieId);
 
         RentResponseDto RentMovie(Guid customerId, Guid movieId);
