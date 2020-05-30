@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using AutoMapper;
 using Core.Models;
 using Infrastructure.Interfaces;
@@ -26,7 +27,7 @@ namespace WebApi.Services
             var movie = moviesRepository.FindById(promoCodeDto.MovieId);
             if (movie == null)
             {
-                throw new HttpException("Movie not found.", HttpStatus.NotFound);
+                throw new HttpException("Movie not found.", HttpStatusCode.NotFound);
             }
 
             var promoCode = PromoCode.Create(movie, promoCodeDto.PromoEnd, promoCodeDto.Percentage);
@@ -41,7 +42,7 @@ namespace WebApi.Services
 
             if (movie == null)
             {
-                throw new HttpException("Movie not found.", HttpStatus.NotFound);
+                throw new HttpException("Movie not found.", HttpStatusCode.NotFound);
             }
 
             return mapper.Map<MovieDto>(movie);

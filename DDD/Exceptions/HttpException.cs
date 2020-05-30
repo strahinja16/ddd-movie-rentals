@@ -1,19 +1,14 @@
 ﻿using System;
+using System.Net;
 using System.Runtime.Serialization;
 
 namespace WebApi.Exceptions
-{
-    public enum HttpStatus
-    {
-        NotFound = 404,
-        BadRequest = 400,
-        Success = 200,
-        InternalServerError = 500
-    }
-
+{ 
     public class HttpException: Exception
     {
-        public HttpException(string message, HttpStatus status) : base($"Status: {status}. Message: {message}") { }
+        public HttpStatusCode HttpStatusCode { get; private set; }
+
+        public HttpException(string message, HttpStatusCode status) : base(message) { HttpStatusCode = status; }
          
         public HttpException(string message, Exception innerException) : base(message, innerException) { }
 

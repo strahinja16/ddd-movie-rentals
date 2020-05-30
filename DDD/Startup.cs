@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApi.Interfaces;
 using WebApi.Mappings;
+using WebApi.Middlewares;
 using WebApi.Seeds;
 using WebApi.Services;
 
@@ -43,6 +44,9 @@ namespace DDD
             services.AddTransient<IMoviesRepository, MoviesRepository>();
             services.AddTransient<IMoviesService, MoviesService>();
 
+            services.AddTransient<ICustomersRepository, CustomersRepository>();
+            services.AddTransient<ICustomersService, CustomersService>();
+
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -62,6 +66,9 @@ namespace DDD
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
             app.UseMvc();
 
             SeedData.SeedDatabase(serviceProvider.GetRequiredService<RentalDbContext>());

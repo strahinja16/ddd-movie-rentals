@@ -35,5 +35,6 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Mappings\" />
     <Folder Include="DTO\" />
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 </Project>
