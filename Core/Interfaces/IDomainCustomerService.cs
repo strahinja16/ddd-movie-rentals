@@ -5,6 +5,8 @@ namespace Core.Interfaces
 {
     public interface IDomainCustomersService : IDomainService
     {
-        Customer CreateCustomer(string name, string lastName, string creditCardValue); 
+        Customer CreateCustomer(string name, string lastName, string creditCardValue);
+
+        Customer EditCreditCard(Customer customer, string creditCardValue);
     }
 }

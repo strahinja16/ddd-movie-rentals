@@ -9,6 +9,8 @@ namespace WebApi.Interfaces
 
         CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
 
+        CustomerDto EditCreditCard(Guid id, string creditCardValue);
+
         PurchaseResponseDto PurchaseMovie(Guid customerId, Guid movieId);
 
         RentResponseDto RentMovie(Guid customerId, Guid movieId);

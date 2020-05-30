@@ -32,6 +32,12 @@ namespace WebApi.Controllers
             return customersService.CreateCustomer(createCustomerDto);
         }
 
+        [HttpPut("{id}")]
+        public CustomerDto EdtCreditCard(Guid id, [FromBody] EditCreditCardDto editCreditCardDto)
+        {
+            return customersService.EditCreditCard(id, editCreditCardDto.CreditCardValue);
+        }
+
         [HttpPost("{id}/rent-movie")]
         public RentResponseDto RentMovie(Guid id, [FromBody] RentRequestDto rentRequestDto)
         {

@@ -16,7 +16,7 @@ namespace Core.Models
 
         public FullName FullName { get; private set; }
 
-        public CreditCard CreditCard { get; private set; }
+        public CreditCard CreditCard { get; set; }
 
         private Customer() { }
 

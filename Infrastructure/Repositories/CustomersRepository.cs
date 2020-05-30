@@ -64,7 +64,7 @@ namespace Infrastructure.Repositories
         {
             var customerFromDb = context.Customers.Find(customer.Id);
 
-            customerFromDb.CreditCard.IsValid = false;
+            customerFromDb.CreditCard = CreditCard.Create(customerFromDb.CreditCard.Value, false);
 
             context.SaveChanges();
         }
@@ -87,6 +87,15 @@ namespace Infrastructure.Repositories
             }).ToList();
 
             context.SaveChanges();
+        }
+
+        public Customer EditCreditCard(Customer customer, CreditCard creditCard)
+        {
+            customer.CreditCard = creditCard;
+
+            context.SaveChanges();
+
+            return customer;
         }
     }
 }

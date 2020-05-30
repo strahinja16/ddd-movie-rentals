@@ -33,5 +33,13 @@ namespace Core.Services
 
             return customer;
         }
+
+        public Customer EditCreditCard(Customer customer, string creditCardValue)
+        {
+            var isCreditCardValid = paymentService.CreditCardIsValid(creditCardValue);
+            var creditCard = CreditCard.Create(creditCardValue, isCreditCardValid);
+
+            return customersRepository.EditCreditCard(customer, creditCard);
+        }
     }
 }

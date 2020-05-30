@@ -12,6 +12,8 @@ namespace Core.Interfaces.Infrastructure
 
         Customer AddMoviePurchase(MoviePurchase moviePurchase);
 
+        Customer EditCreditCard(Customer customer, CreditCard creditCard);
+
         void InvalidateCreditCard(Customer customer);
 
         void FinishRental(MovieRental movieRental);

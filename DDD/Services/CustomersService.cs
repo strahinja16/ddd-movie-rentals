@@ -106,5 +106,18 @@ namespace WebApi.Services
 
             return mapper.Map<CustomerDto>(customer);
         }
+
+        public CustomerDto EditCreditCard(Guid customerId, string creditCardValue)
+        {
+            var customer = customersRepository.FindById(customerId);
+            if (customer == null)
+            {
+                throw new HttpException("Customer not found.", HttpStatusCode.NotFound);
+            }
+
+            var editedCustomer = domainCustomersService.EditCreditCard(customer, creditCardValue);
+
+            return mapper.Map<CustomerDto>(editedCustomer);
+        }
     }
 }
