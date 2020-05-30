@@ -119,5 +119,35 @@ namespace WebApi.Services
 
             return mapper.Map<CustomerDto>(editedCustomer);
         }
+
+        public WatchMovieResponseDto WatchMovie(Guid customerId, Guid movieId)
+        {
+            var customer = customersRepository.FindByIdWithPurchasesAndRentals(customerId);
+            if (customer == null)
+            {
+                throw new HttpException("Customer not found.", HttpStatusCode.NotFound);
+            }
+
+            var movie = moviesRepository.FindById(movieId);
+            if (movie == null)
+            {
+                throw new HttpException("Movie not found.", HttpStatusCode.NotFound);
+            }
+
+            try
+            {
+                var movieStream = domainCustomersService.WatchMovie(customer, movie);
+                if (string.IsNullOrEmpty(movieStream))
+                {
+                    throw new HttpException("Something went wrong, stream not generated.", HttpStatusCode.InternalServerError);
+                }
+
+                return new WatchMovieResponseDto() { MovieStream = movieStream };
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException("Movie stream connection failed.", ex);
+            }
+        }
     }
 }

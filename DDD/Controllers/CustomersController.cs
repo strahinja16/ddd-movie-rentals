@@ -49,5 +49,11 @@ namespace WebApi.Controllers
         {
             return customersService.PurchaseMovie(id, purchaseRequestDto.MovieId);
         }
+
+        [HttpPost("{id}/watch-movie")]
+        public WatchMovieResponseDto WatchMovie(Guid id, [FromBody] WatchMovieRequestDto watchMovieRequestDto)
+        {
+            return customersService.WatchMovie(id, watchMovieRequestDto.MovieId);
+        }
     }
 }

@@ -14,5 +14,7 @@ namespace WebApi.Interfaces
         PurchaseResponseDto PurchaseMovie(Guid customerId, Guid movieId);
 
         RentResponseDto RentMovie(Guid customerId, Guid movieId);
+
+        WatchMovieResponseDto WatchMovie(Guid customerId, Guid movieId);
     }
 }

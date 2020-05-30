@@ -12,11 +12,16 @@ namespace Core.Services
     {
         private readonly ICustomersRepository customersRepository;
         private readonly IPaymentService paymentService;
+        private readonly IStreamingService streamingService;
 
-        public DomainCustomersService(ICustomersRepository customersRepository, IPaymentService paymentService)
+        public DomainCustomersService(
+            ICustomersRepository customersRepository,
+            IPaymentService paymentService,
+            IStreamingService streamingService)
         {
             this.customersRepository = customersRepository;
             this.paymentService = paymentService;
+            this.streamingService = streamingService;
         }
 
         public Customer CreateCustomer(string name, string lastName, string creditCardValue)
@@ -40,6 +45,28 @@ namespace Core.Services
             var creditCard = CreditCard.Create(creditCardValue, isCreditCardValid);
 
             return customersRepository.EditCreditCard(customer, creditCard);
+        }
+
+        public string WatchMovie(Customer customer, Movie movie)
+        {
+            var currentlyRentedMovie = customer.MovieRentals
+                .FirstOrDefault(mr => mr.MovieId == movie.Id && mr.EndDate > DateTime.Now);
+            var purchasedMovie = customer.MoviePurchases.FirstOrDefault(m => m.MovieId == movie.Id);
+
+            if (currentlyRentedMovie == null && purchasedMovie == null)
+                throw new MovieNotAcquiredException("Movie is not acquired. Please rent or purchase movie and try again.");
+
+            if (currentlyRentedMovie != null)
+            {
+                return streamingService.GetMovieStream(currentlyRentedMovie.Movie);
+            }
+
+            if (purchasedMovie != null)
+            {
+                return streamingService.GetMovieStreamWithDownload(purchasedMovie.Movie);
+            }
+
+            return string.Empty;
         }
     }
 }

@@ -12,4 +12,7 @@
     <Folder Include="Interfaces\Infrastructure\" />
     <Folder Include="Models\Responses\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Exceptions\MovieNotRentedException.cs" />
+  </ItemGroup>
 </Project>
